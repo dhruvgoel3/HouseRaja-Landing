@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/* HouseRaja design tokens — same palette as the Android app
+   (lib/core/theme/app_palette.dart). */
+@theme {
+  --color-ink: #151515;
+  --color-ink-soft: #2a2a2a;
+  --color-paper: #f6f5f1;
+  --color-surface: #ffffff;
+  --color-surface-alt: #efeee9;
+  --color-muted: #68675f;
+  --color-line: #e4e2dc;
+  --color-accent: #0b8a5f;
+  --color-accent-strong: #087350;
+  --color-accent-soft: #e2f2eb;
+  --color-mint: #5fe0ab;
+  --color-whatsapp: #25d366;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1.25rem;
+  --shadow-soft: 0 1px 2px rgb(21 21 21 / 0.04), 0 8px 24px rgb(21 21 21 / 0.06);
+  --shadow-lift: 0 30px 60px -20px rgb(21 21 21 / 0.35);
+
+  --animate-float: float 6s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-paper text-ink antialiased;
+  }
+  ::selection {
+    @apply bg-accent text-white;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+/* Scroll-reveal (see components/reveal.tsx). Disabled for reduced motion. */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-float { animation: none; }
+}
+
+details > summary::-webkit-details-marker { display: none; }
